@@ -1,26 +1,26 @@
-# 📚 Sistema de Evaluaciones - Prueba Técnica Fullstack
+# Sistema de Evaluaciones - Prueba Tecnica Fullstack
 
 Sistema completo de gestión de evaluaciones desarrollado con Node.js + TypeScript, React, PostgreSQL y Docker.
 
-## 🎯 Características
+## Características
 
 - ✅ **Backend RESTful** con Node.js, Express y TypeScript
 - ✅ **Frontend interactivo** con React, TypeScript y Vite
 - ✅ **Base de datos** PostgreSQL con Prisma ORM
-- ✅ **Dockerización completa** con docker-compose
-- ✅ **Evaluaciones dinámicas** con preguntas aleatorias
+- ✅ **Uso de Docker completo** con docker-compose
+- ✅ **Evaluaciones dinamicas** con preguntas aleatorias
 - ✅ **Retroalimentación inmediata** al responder
 - ✅ **Interfaz responsive** y moderna
 - ✅ **Navegación intuitiva** con breadcrumbs
 
-## 🏗️ Arquitectura del Sistema
+## Arquitectura del Sistema
 
 ```
 ┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
 │                 │      │                 │      │                 │
-│   Frontend      │─────▶│   Backend API   │─────▶│   PostgreSQL    │
+│   Frontend      │─────▶│  Backend API   │─────▶│   PostgreSQL    │
 │   React + Vite  │      │   Node.js +     │      │   Database      │
-│   Port: 80      │      │   Express       │      │   Port: 5432    │
+│   Port: 80      │      │   Prisma        │      │   Port: 5432    │
 │                 │      │   Port: 3000    │      │                 │
 └─────────────────┘      └─────────────────┘      └─────────────────┘
 ```
@@ -30,7 +30,6 @@ Sistema completo de gestión de evaluaciones desarrollado con Node.js + TypeScri
 **Backend:**
 - Node.js 18
 - TypeScript
-- Express.js
 - Prisma ORM
 - PostgreSQL 15
 
@@ -43,20 +42,20 @@ Sistema completo de gestión de evaluaciones desarrollado con Node.js + TypeScri
 
 **DevOps:**
 - Docker & Docker Compose
-- Nginx (para servir el frontend)
+- Nginx (para correr el frontend)
 - Adminer (administración de BD)
 
 ## 🚀 Instalación y Ejecución
 
-### Prerrequisitos
+### Prerrequisitos (SUOER IMPORTANTE TENER DOCKER)
 - Docker Desktop instalado y corriendo
 - Git (opcional, para clonar el repositorio)
 
-### Opción 1: Ejecución con Docker (Recomendado)
+### Opción 1: Ejecución con Docker (Ideal para fines de esta prueba)
 
 1. **Clonar o descargar el proyecto:**
 ```bash
-git clone <url-del-repositorio>
+git clone git@github.com:Karmic26/sistema-evaluaciones-fullstack.git
 cd sistema-evaluaciones
 ```
 
@@ -95,13 +94,13 @@ npm install
 npm run dev
 ```
 
-## 📡 Endpoints de la API
+## Endpoints de la API
 
 ### Cursos
 ```http
 GET /api/cursos
 ```
-Obtiene la lista de todos los cursos disponibles.
+Petición para traer la lista de todos los cursos disponibles.
 
 **Respuesta:**
 ```json
@@ -123,13 +122,13 @@ Obtiene la lista de todos los cursos disponibles.
 ```http
 GET /api/cursos/:cursoId/lecciones
 ```
-Obtiene todas las lecciones de un curso específico.
+Pertición para traer todas las lecciones de un curso específico.
 
 ### Preguntas
 ```http
 GET /api/lecciones/:leccionId/preguntas
 ```
-Obtiene las preguntas de una lección (en orden aleatorio).
+Petición para traer las preguntas de una lección (en orden aleatorio).
 
 **Respuesta:**
 ```json
@@ -161,7 +160,7 @@ Content-Type: application/json
 }
 ```
 
-Evalúa una respuesta y retorna si fue correcta o incorrecta.
+Evalua una respuesta y retorna si fue correcta o incorrecta.
 
 **Respuesta:**
 ```json
@@ -181,13 +180,7 @@ Evalúa una respuesta y retorna si fue correcta o incorrecta.
 }
 ```
 
-### Health Check
-```http
-GET /health
-```
-Verifica el estado de la API.
-
-## 🗄️ Modelo de Datos
+## Modelo de Datos
 
 ```prisma
 model Curso {
@@ -215,23 +208,16 @@ model Pregunta {
 }
 ```
 
-## 🧪 Datos de Prueba
+## Datos de Prueba
 
-El sistema incluye datos de prueba creados automáticamente:
+El sistema incluye datos de prueba:
 
 - **3 cursos**: JavaScript Fundamentals, React.js, Node.js Backend
 - **5 lecciones** distribuidas entre los cursos
-- **15+ preguntas** de ejemplo
+- **10+ preguntas** de ejemplo
 
-## 🎮 Uso de la Aplicación
 
-1. **Página de inicio**: Visualiza todos los cursos disponibles
-2. **Selecciona un curso**: Ve las lecciones disponibles
-3. **Inicia una evaluación**: Comienza a responder preguntas
-4. **Recibe retroalimentación**: Obtén feedback inmediato
-5. **Revisa resultados**: Visualiza tu puntuación final
-
-## 🐳 Comandos Docker Útiles
+## Comandos Docker Utiles
 
 ```bash
 # Iniciar todos los servicios
@@ -240,7 +226,7 @@ docker-compose up
 # Iniciar en segundo plano
 docker-compose up -d
 
-# Reconstruir las imágenes
+# Reconstruir las imaenes
 docker-compose up --build
 
 # Ver logs de todos los servicios
@@ -255,7 +241,7 @@ docker-compose logs -f frontend
 # Parar todos los servicios
 docker-compose down
 
-# Parar y eliminar volúmenes (resetear BD)
+# Parar y eliminar volumenes (resetear BD)
 docker-compose down -v
 
 # Ver estado de los contenedores
@@ -266,7 +252,7 @@ docker-compose exec api sh
 docker-compose exec postgres psql -U evaluaciones_user -d evaluaciones_db
 ```
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 sistema-evaluaciones/
@@ -290,7 +276,7 @@ sistema-evaluaciones/
 │   │   ├── components/      # Componentes reutilizables
 │   │   │   ├── Header.tsx
 │   │   │   └── Loading.tsx
-│   │   ├── pages/           # Páginas principales
+│   │   ├── pages/           # Paginas principales
 │   │   │   ├── HomePage.tsx
 │   │   │   ├── CursoPage.tsx
 │   │   │   └── EvaluacionPage.tsx
@@ -309,25 +295,23 @@ sistema-evaluaciones/
 └── README.md
 ```
 
-## 🔒 Seguridad
+## Seguridad
 
-- ✅ Las respuestas correctas NO se exponen en el endpoint de preguntas
+- ✅ Las respuestas correctas NO se exponen en el endpoint de preguntas para evitra trampas
 - ✅ Validación de entrada en todos los endpoints
 - ✅ Manejo seguro de errores sin exponer detalles internos
-- ✅ Usuario no privilegiado en contenedores Docker
-- ✅ CORS configurado correctamente
 
-## 🧹 Mantenimiento
+## Mantenimiento
 
 ### Limpiar todo Docker
 ```bash
 # Detener y eliminar todo
 docker-compose down -v
 
-# Limpiar imágenes no usadas
+# Limpiar imagenes no usadas
 docker system prune -a
 
-# Limpiar volúmenes
+# Limpiar volumenes
 docker volume prune
 ```
 
@@ -345,46 +329,28 @@ cd backend && npm update
 cd frontend && npm update
 ```
 
-## 🐛 Troubleshooting
+## Solución de posibles problemas
 
 ### El frontend no carga
-- Verifica que el backend esté corriendo: `docker-compose logs api`
-- Asegúrate de que no haya errores de CORS
-- Revisa la consola del navegador (F12)
+- Verificar que el backend esté corriendo: `docker-compose logs api`
+- Revisar de que no haya errores de CORS
+- Revisar la consola del navegador (F12)
 
 ### Error de conexión a la base de datos
-- Verifica que PostgreSQL esté corriendo: `docker-compose ps`
-- Revisa los logs: `docker-compose logs postgres`
-- Resetea la base de datos: `docker-compose down -v && docker-compose up --build`
+- Verificar que PostgreSQL esté corriendo: `docker-compose ps`
+- Revisar los logs: `docker-compose logs postgres`
+- Resetear la base de datos: `docker-compose down -v && docker-compose up --build`
 
 ### Puerto ya en uso
-- Cambia los puertos en `docker-compose.yml`
-- Verifica qué está usando el puerto: `netstat -ano | findstr :80`
+- Cambiar los puertos en `docker-compose.yml`
+- Verificar que esta usando el puerto: `netstat -ano | findstr :80`
 
-## 📊 Pruebas con Postman
+## Pruebas con Postman
 
-Importa la colección `postman_collection.json` incluida en el repositorio para probar todos los endpoints de la API.
-
-## 👨‍💻 Desarrollo
-
-### Agregar nuevos cursos/lecciones
-Edita el archivo `backend/src/seed.ts` y ejecuta:
-```bash
-docker-compose exec api npx ts-node src/seed.ts
-```
-
-### Modificar el esquema de BD
-1. Edita `backend/prisma/schema.prisma`
-2. Ejecuta: `docker-compose exec api npx prisma db push`
-
-## 📄 Licencia
-
-Este proyecto fue desarrollado como prueba técnica.
-
-## 🤝 Contacto
-
-Para consultas o sugerencias sobre este proyecto, por favor abre un issue en el repositorio.
+Importar la colección `Evaluaciones API.postman_collection.json` que esta en el repositorio para probar todos los endpoints de la API, solo es ejecutar mientras el servidor esta funcionando.
 
 ---
 
-**Desarrollado con ❤️ usando React, Node.js, TypeScript y Docker**
+**Desarrollado con React, Node.js, TypeScript y Docker**
+
+## Hermoso reto de desarrollo TBH, hace tiempo no usaba docker a este nivel para correr un proyecto así y fue interesante recordar algunas cositas!
