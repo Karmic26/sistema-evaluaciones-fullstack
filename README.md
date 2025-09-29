@@ -45,7 +45,7 @@ Sistema completo de gestión de evaluaciones desarrollado con Node.js + TypeScri
 - Nginx (para correr el frontend)
 - Adminer (administración de BD)
 
-## 🚀 Instalación y Ejecución
+## Instalación y Ejecución
 
 ### Prerrequisitos (SUOER IMPORTANTE TENER DOCKER)
 - Docker Desktop instalado y corriendo
