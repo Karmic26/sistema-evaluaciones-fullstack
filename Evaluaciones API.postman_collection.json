@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "de223f94-27a4-449a-abce-cad4b5f9b316",
+		"name": "Evaluaciones API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "48857305",
+		"_collection_link": "https://camilo-quintero-dev-1787123.postman.co/workspace/Karmic's-Workspace~98b79942-f41d-4df5-81d9-89539fb7d5a0/collection/48857305-de223f94-27a4-449a-abce-cad4b5f9b316?action=share&source=collection_link&creator=48857305"
+	},
+	"item": [
+		{
+			"name": "Cursos – Listar todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3001/api/cursos"
+			},
+			"response": []
+		},
+		{
+			"name": "Lecciones por curso",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3001/api/cursos/1/lecciones"
+			},
+			"response": []
+		},
+		{
+			"name": "Preguntas por lección",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3001/api/lecciones/1/preguntas"
+			},
+			"response": []
+		},
+		{
+			"name": "Evaluar Respuesta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"preguntaId\": 1,\r\n  \"respuesta\": \"var nombre = \\\"Juan\\\";\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3001/api/evaluar"
+			},
+			"response": []
+		}
+	]
+}

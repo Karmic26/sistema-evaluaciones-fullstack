@@ -1,0 +1,84 @@
+
+services:
+  # Base de datos PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: evaluaciones_db
+      POSTGRES_USER: evaluaciones_user
+      POSTGRES_PASSWORD: evaluaciones_pass
+      PGUSER: evaluaciones_user
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - evaluaciones-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U evaluaciones_user -d evaluaciones_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # API Backend
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      DATABASE_URL: "postgresql://evaluaciones_user:evaluaciones_pass@postgres:5432/evaluaciones_db"
+      PORT: 3000
+      NODE_ENV: production
+      JWT_SECRET: 123456789
+      CORS_ORIGINS: http://localhost:3001,http://localhost:5173,http://localhost:80,http://localhost
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - evaluaciones-network
+    command: >
+      sh -c "
+        echo '🔄 Esperando a que la base de datos esté lista...' &&
+        sleep 10 &&
+        npx prisma db push --accept-data-loss &&
+        echo '🌱 Ejecutando seed de datos...' &&
+        npx ts-node src/seed.ts &&
+        echo '🚀 Iniciando servidor API...' &&
+        npm start
+      "
+
+  # Frontend React
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    networks:
+      - evaluaciones-network
+
+  # Adminer - Interfaz web para PostgreSQL (Correr en el puerto http://localhost:8080/)
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - evaluaciones-network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+
+networks:
+  evaluaciones-network:
+    driver: bridge
